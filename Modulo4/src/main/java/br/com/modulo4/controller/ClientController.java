@@ -1,4 +1,4 @@
-package controller;
+package br.com.modulo4.controller;
 
 import javax.faces.bean.ViewScoped;
 import javax.inject.Named;
