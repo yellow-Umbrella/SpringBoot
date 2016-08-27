@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Client {
@@ -15,6 +17,9 @@ public class Client {
 	
 	@Column(nullable=false, length=50)
 	private String email;
+	
+	@JoinColumn @ManyToOne
+	private State state;
 	
 	public Client() {
 		
@@ -47,6 +52,14 @@ public class Client {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public void setState(State state) {
+		this.state = state;
+	}
+	
+	public State getState() {
+		return state;
 	}
 	
 	public String toString() {
