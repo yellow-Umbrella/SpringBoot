@@ -19,7 +19,7 @@ public class Client {
 	private String email;
 	
 	@JoinColumn @ManyToOne
-	private State state;
+	private State state; //
 	
 	public Client() {
 		
