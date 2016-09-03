@@ -1,11 +1,15 @@
 package br.com.modulo4.models;
 
-import javax.persistence.Column;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Client {
@@ -15,19 +19,26 @@ public class Client {
 	
 	private String name;
 	
-	@Column(nullable=false, length=50)
-	private String email;
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="client")
+	private List<Contact> contacts = new ArrayList<>();
 	
+	public List<Contact> getContacts() {
+		return contacts;
+	}
+
+	public void setContacts(List<Contact> contacts) {
+		this.contacts = contacts;
+	}
+
 	@JoinColumn @ManyToOne
-	private State state; //
+	private State state;
 	
 	public Client() {
 		
 	}
 	
-	public Client(String name, String email) {
+	public Client(String name) {
 		this.name = name;
-		this.email = email;
 	}
 
 	public Long getId() {
@@ -45,14 +56,6 @@ public class Client {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
 	
 	public void setState(State state) {
 		this.state = state;
@@ -63,7 +66,7 @@ public class Client {
 	}
 	
 	public String toString() {
-		return "id: " + id + " Name: " + name + " email: " + email;
+		return "id: " + id + " Name: " + name;
 	}
 
 }

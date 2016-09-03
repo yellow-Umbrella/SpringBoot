@@ -17,5 +17,8 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 	
 	@Query("SELECT cli FROM Client cli")
 	public List<Client> getAll();
+	
+	@Query("SELECT cli FROM Client WHERE cli.name=:name")
+	public Client getByName(@Param("name") String name);
 
 }

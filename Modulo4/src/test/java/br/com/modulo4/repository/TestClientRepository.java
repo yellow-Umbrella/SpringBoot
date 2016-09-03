@@ -32,29 +32,29 @@ public class TestClientRepository {
 	@Test
 	public void saveTest() {
 		
-		Client cli = new Client("Renan", "renan@gmail.com");
+		Client cli = new Client("Renan");
 		Client saved = cliRepository.save(cli);
 		Assert.assertNotNull(saved.getId());
 		
 	}
 	
 	@Test
-	public void getByEmailTest() {
+	public void getByName() {
 		
-		Client cli = new Client("Renan", "renan@gmail.com");
+		Client cli = new Client("Renan");
 		entity.persist(cli);
 		
-		Client found = cliRepository.getByEmail("renan@gmail.com");
+		Client found = cliRepository.getByName("Renan");
 		
-		assertThat(found.getEmail()).isEqualTo(cli.getEmail());
+		assertThat(found.getName()).isEqualTo(cli.getName());
 		
 	}
 	
 	@Test
 	public void getAllTest() {
 		
-		Client cli1 = new Client("Renan", "renan@gmail.com");
-		Client cli2 = new Client("Carlos", "carlos@gmail.com");
+		Client cli1 = new Client("Renan");
+		Client cli2 = new Client("Carlos");
 		
 		entity.persist(cli1);
 		entity.persist(cli2);
