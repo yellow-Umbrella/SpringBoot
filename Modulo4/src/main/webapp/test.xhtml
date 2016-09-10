@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+      
+      <h:head></h:head>
+      
+      <body>
+      	
+      	<h1>Client log in</h1>
+      	
+      	<h:form id="formClient">
+      		Nome: <h:inputText value="#{clientController.client.name}" />
+      		
+      		Contact: <h:inputText value="#{clientController.cDescription}" id="itContact" />
+      		<h:commandButton action="#{clientController.addContact()}" value="+">
+      			<f:ajax execute="itContact" render="itContact dtContact" />
+      		</h:commandButton>
+      		
+      		<h:dataTable border="1" value="#{clientController.client.contacts}" var="contact" id="dtContacts">
+      			<h:column>
+      				#{contact.description}
+      			</h:column>
+      			
+      			<h:column>
+	      			<h:commandButton action="#{clientController.deleteContact(contact)}" value="-">
+	      				<f:ajax render="formClient:dtContacts"/>
+	      			</h:commandButton>
+      			</h:column>
+      			
+      		</h:dataTable>
+      		
+      		State: <h:selectOneMenu value="#{clientController.client.state}" converte="#{stateConverter}">
+      						<f:selectItem noSelectionOption="true" itemValue="" itemLabel=".:Select:." />
+      						<f:selectItems value="#{stateController.states}" var="e" itemLabe="#{e.uf}"/>
+      				</h:selectOneMenu>
+      				
+      				<h:commandButton action="#{clientController.save}" value="Save">
+      					<f:ajax execute="formClient" render="formClient"></f:ajax>
+      				</h:commandButton>
+      				
+      				<h:commandButton rendered="#{clientController.edit}" action="#{cientController.cancel}" value="Cancel">
+      					<f:ajax render="formClient"></f:ajax>
+      					</h:commandButton>
+      					
+      				<h:dataTable value="#{clientController.clients}" var="c" id="dtClient">
+      					<h:column>
+      						<f:facet name="header">ID</f:facet>>
+      						#{c.id}
+      					</h:column>
+      					
+      					<h:column>
+      						<f:facet name="header">Name</f:facet>>
+      						#{c.name}
+      					</h:column>
+      					
+      					<h:column>
+      						<f:facet name="header">UF</f:facet>>
+      						#{c.state.uf}
+      					</h:column>
+      					
+      					
+      					<h:column>
+      						<f:facet name="header">Action</f:facet>
+      						<h:commandButton action="#{clientController.delete(c)}" value="Delete" onclick="return window.confirm('Are you sure?')">
+      							<f:ajax render="formClient:dtClient" />
+      						</h:commandButton>
+      						
+      						<h:commandButton action="#{clientController.edit(c)}" value="Edit">
+      							<f:ajax render="formClient" />
+      						</h:commandButton>
+      						
+      					</h:column>
+      					
+      				</h:dataTable>
+      	
+      	</h:form>
+      	
+      	
+      	
+      	
+      	
+      </body>
+
+</html>

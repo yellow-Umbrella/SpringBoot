@@ -9,6 +9,7 @@ import javax.inject.Named;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.modulo4.models.Client;
+import br.com.modulo4.models.Contact;
 import br.com.modulo4.repository.ClientRepository;
 
 @Named
@@ -23,6 +24,8 @@ public class ClientController {
 	private List<Client> clients;
 	
 	private Client client = new Client();
+	
+	private String cDescription;
 	
 	@PostConstruct
 	public void init() {
@@ -52,6 +55,22 @@ public class ClientController {
 		edit = false;
 	}
 	
+	public void addContact() {
+		
+		Contact contact = new Contact(cDescription);
+		contact.setClient(client);
+		client.getContacts().add(contact);
+		
+		cDescription = "";
+		
+	}
+	
+	public void deleteContact(Contact contact) {
+		
+		client.getContacts().remove(contact);
+		
+	}
+	
 	//get and set
 	
 	public void setEdit(boolean edit) {
@@ -76,6 +95,14 @@ public class ClientController {
 	
 	public void setClients(List<Client> clients) {
 		this.clients = clients;
+	}
+	
+	public void setcDescription(String contact) {
+		this.cDescription = contact;
+	}
+	
+	public String getcDescription() {
+		return cDescription;
 	}
 
 }

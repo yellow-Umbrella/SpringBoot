@@ -12,12 +12,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class State {
+public class ContactType {
 	
 	@Id @GeneratedValue
-	private Integer id;
-	//@Column(unique=true) // so that it stays unique on the DB
-	private String uf;
-
+	private Long id;
+	
+	private String description;
+	
 
 }
